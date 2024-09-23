@@ -1,50 +1,24 @@
-# Welcome to your Expo app 👋
+Clerk minimal repoduction of the issue.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+The issue:
+Social signUp & signIN not working when moving to the Clerk production instance.
 
-## Get started
+App.js
+Set the variable clerkPublishableKey between Clerk instances.
 
-1. Install dependencies
+process.env.EXPO_PUBLIC_OUT_DEV_CLERK_PUBLISHABLE_KEY and social login & email login works.
 
-   ```bash
-   npm install
-   ```
+process.env.EXPO_PUBLIC_OUT_PRD_CLERK_PUBLISHABLE_KEY and email login works (use example test@testing.com/Qwedcxzaq!@#) but social login is not working - redirectURL issue
 
-2. Start the app
+Testing with feedback from Jacob.
 
-   ```bash
-    npx expo start
-   ```
+I added the redirect linking to see and it is wrong. It is showing as com.zig360.zig360app://oauth-native-callback, but in the dasboard, it should be https://clerk.zig360.com/v1/oauth_callback. I tested to hard code the redirectUrl, but still getting the mismatch error, even with this set.
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+const onSelectGoogleAuth = useCallback(async () => {
+console.log("Linking URL :", Linking.createURL("/oauth-native-callback"));
+try {
+const { createdSessionId, setActive } = await googleAuth({
+redirectUrl: "https://clerk.zig360.com/v1/oauth_callback",
+});
+// redirectUrl: Linking.createURL("/oauth-native-callback"),
+// });

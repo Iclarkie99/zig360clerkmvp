@@ -1,0 +1,38 @@
+{
+  "cli": {
+    "version": ">= 7.1.2"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "channel": "development"
+    },
+    "development-simulator": {
+      "extends": "development",
+      "ios": {
+        "simulator": true
+      },
+      "channel": "development-simulator"
+    },
+    "preview": {
+      "distribution": "internal",
+      "channel": "preview",
+      "ios": {
+        "simulator": true
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_OUT_PRD_CLERK_PUBLISHABLE_KEY": "pk_live_Y2xlcmsuemlnMzYwLmNvbSQ",
+        "EXPO_PUBLIC_OUT_DEV_CLERK_PUBLISHABLE_KEY": "pk_test_dW5jb21tb24tZ3JpZmZvbi01Mi5jbGVyay5hY2NvdW50cy5kZXYk",
+        "EXPO_PUBLIC_OUT_ENV": "PRODUCTION",
+        "EXPO_PUBLIC_OUT_PROD_API_URL": "https://u1opaontij.execute-api.us-east-2.amazonaws.com/dev2"
+      },
+      "channel": "production"
+    }
+  }
+}
